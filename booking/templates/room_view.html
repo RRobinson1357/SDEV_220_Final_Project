@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+<header>
+    <h1> Room: {{ room.room_number }} </h1>
+</header>
+        <article class="room">
+            <p>Price: {{ room.cost_per_night }}</p>
+            <p>Windows: {{ room.window_number }}</p>
+            <p>Beds: {{ room.bed_number }}</p>
+            <p>Square Feet: {{ room.sq_ft }}</p>
+            <p>Occupants: {{ room.occupants }}</p>
+            <p>Description: {{ room.room_desc }}</p>
+            <p>Cost Per Night: {{ room.cost_per_night }}</p>
+        </article>
+    <a href="{% url 'book' room_number=room.room_number %}">Book</a>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Room List</title>
+</head>
+<body>
+    <h1>Hotel Room List</h1>
+    {% for room in rooms %}
+        <div>
+            <h2><a href="{% url 'room' room_number=room.room_number%}">{{ room.room_number }}</a></h2>
+            <p>Price: {{ room.cost_per_night }}</p>
+            <p>Windows: {{ room.window_number }}</p>
+            <p>Beds: {{ room.bed_number }}</p>
+            <p>Square Feet: {{ room.sq_ft }}</p>
+            <p>Occupants: {{ room.occupants }}</p>
+            <p>Description: {{ room.room_desc }}</p>
+            <p>Cost Per Night: {{ room.cost_per_night }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

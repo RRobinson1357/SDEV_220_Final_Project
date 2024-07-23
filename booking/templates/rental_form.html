@@ -1,0 +1,45 @@
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {{ form.media }}
+</head>
+<form>
+    <label for="cardname">Cardholder's name:</label><br>
+    <input type="text" id="cardname" name="cardname" value="Name on card"><br>
+    <label for="cardnum">Card number:</label><br>
+    <input type="text" id="cardnum" name="cardnum" value="XXXX-XXXX-XXXX-XXXX"><br>
+    <label for="expdate">Expiration date:</label><br>
+    <input type="text" id="expdate" name="expdate" value="Mm/yyyy"><br>
+    <label for="cvv">CVV:</label><br>
+    <input type="text" id="cvv" name="cvv" value="CVV">
+</form>
+<body>
+    <div class="container">
+        <div class="col-md-3">
+        <form method="post">{% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">Save</button>
+            {% endbuttons %}
+        </form>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        </div>
+    </div>
+</body>
+</html>
