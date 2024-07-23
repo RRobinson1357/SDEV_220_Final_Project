@@ -14,8 +14,6 @@ if ($user == $testUser && $pass == $testPass){
   exit();   
 }
 else{
-  //give error
-  echo 'Incorrect username or password';
   //set logged in to false to track status
   $loggedIn=False;
   //send or keep user at the login page
