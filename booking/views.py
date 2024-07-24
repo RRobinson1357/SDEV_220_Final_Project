@@ -1,7 +1,9 @@
 from datetime import timedelta
 
+import django
 from django.shortcuts import get_object_or_404, render
-
+from django.contrib.auth import login,authenticate
+from django.contrib.auth.forms import UserCreationForm
 from .forms import Book_Date
 from .models import Dates, Room
 
@@ -9,15 +11,9 @@ from .models import Dates, Room
 def room_list(request):
     rooms = Room.objects.all()
     return render(request, 'room_list.html', {'rooms': rooms})
-    
-def index(request):
-    return render(request, 'index.php')
-def login(request):
-    return render(request, 'includes/login.php')
-def home(request):
-    return render(request, 'home.php')
-def register(request):
-    return render(request, 'register.php')
+def register(response):
+    form = UserCreationForm()
+    return render(response, 'registration/register.html', {'form':form})
 
 def room_detail(request, room_number):
     room = get_object_or_404(Room, room_number = room_number)

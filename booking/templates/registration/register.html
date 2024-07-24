@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang='en'>
+<title>Register</title>
+  </head>
+    <body>
+      <h1>Register</h1>
+        <form  id="RegistrationForm" method="POST">
+          {%csrf_token%}
+          {{form}}
+            <input type="submit" value="Register">
+          <button><a href="{% url 'login' %}">Login</a></button>
+        </form>
+    </body>
+</html>
