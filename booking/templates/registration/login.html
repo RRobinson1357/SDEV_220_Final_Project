@@ -1,5 +1,5 @@
 {%block title%}
-Login:
+<h2>Log in</h2>
 {%endblock%}
 {% block content %}
     {% if form.errors %}
@@ -23,5 +23,5 @@ Login:
         <input type="hidden" name="next" value="{{ next }}" />
         <button><a href="{% url 'register' %}">Register</a></button>
     </form>
-    
+
 {% endblock %}
