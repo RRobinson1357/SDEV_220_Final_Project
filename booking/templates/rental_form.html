@@ -1,8 +1,10 @@
+{% extends 'auth.html' %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 {{ form.media }}
 <html lang="en">
+{%block content%}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +15,7 @@
     {% bootstrap_javascript jquery='full' %}
     {{ form.media }}
 </head>
+    
 <form>
     <label for="cardname">Cardholder's name:</label><br>
     <input type="text" id="cardname" name="cardname" value="Name on card"><br>
@@ -42,4 +45,5 @@
         </div>
     </div>
 </body>
+    {%endblock%}
 </html>

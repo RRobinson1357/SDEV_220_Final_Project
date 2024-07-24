@@ -1,8 +1,8 @@
 from datetime import timedelta
 
 import django
-from django.shortcuts import get_object_or_404, render
-from django.contrib.auth import login,authenticate
+from django.shortcuts import get_object_or_404, render,redirect
+from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm
 from .forms import Book_Date
 from .models import Dates, Room
@@ -12,8 +12,18 @@ def room_list(request):
     rooms = Room.objects.all()
     return render(request, 'room_list.html', {'rooms': rooms})
 def register(response):
-    form = UserCreationForm()
+    if response.method == 'POST':
+        form = UserCreationForm(response.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('')
+    else:
+        form = UserCreationForm()
     return render(response, 'registration/register.html', {'form':form})
+    
+def log_out(request):
+    logout(request)
+    return render(request, 'registration/log_out.html',{})
 
 def room_detail(request, room_number):
     room = get_object_or_404(Room, room_number = room_number)
