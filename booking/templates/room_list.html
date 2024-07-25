@@ -1,12 +1,17 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet", a href="{% static 'css/main.css' %}">
     <meta charset="UTF-8">
+    <nav>
     {% if user.is_authenticated %}
         <a href="{%url 'logout'%}"">Logout</a>
     {%else%}
         <a href='login/'>Login</a>
     {%endif%}
+    </nav>
     <title>Hotel Room List</title>
 </head>
 <body>

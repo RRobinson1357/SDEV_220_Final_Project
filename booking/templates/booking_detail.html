@@ -1,0 +1,14 @@
+</head>
+<body>
+    <h1>Your Bookings:</h1>
+    {% for rental in rentals %}
+        <div>
+            <h2>Rental:</h2>
+            <p>Room Number: {{ rental.room_number }}</p>
+            <p>Start Date: {{ rental.start_date }}</p>
+            <p>End Date: {{ rental.end_date }}</p>
+            <p>Total: {{ rental.total }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

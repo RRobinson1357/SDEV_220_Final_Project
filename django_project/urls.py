@@ -26,5 +26,6 @@ urlpatterns = [
     path('rooms/<room_number>/book/', views.BookRoom, name='book'),
     path("rooms/<room_number>/", views.room_detail, name='room'),
     path('',include('django.contrib.auth.urls')),
-    path('logout_user/', views.log_out, name='logout')
+    path('logout_user/', views.log_out, name='logout'),
+    path('bookings/<customer_id>', views.booking_detail, name = 'bookings')
 ]

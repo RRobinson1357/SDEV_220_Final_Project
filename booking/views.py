@@ -5,8 +5,8 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm
 from .forms import Book_Date
-from .models import Dates, Room
-
+from .models import Dates, Room, Rental
+from django.contrib import messages
 
 def room_list(request):
     rooms = Room.objects.all()
@@ -28,6 +28,11 @@ def log_out(request):
 def room_detail(request, room_number):
     room = get_object_or_404(Room, room_number = room_number)
     return render(request, 'room_view.html', {'room': room})
+
+def booking_detail(request, customer_id):
+    rentals = Rental.objects.filter(customer_id = customer_id)
+    print(rentals)
+    return render(request, 'booking_detail.html', {'rentals': rentals})
 
 def BookRoom(request, room_number):
     room = room_number 
@@ -96,7 +101,6 @@ def BookRoom(request, room_number):
 
         #checks dates in compare_date list to those in database
         for date in compare_date:      
-            print(date)
             if date in blocked_dates:
                 #prevents user from double booking one date NEEDS ERROR MESSAGE
                 booked_flag = True
@@ -106,14 +110,12 @@ def BookRoom(request, room_number):
             for date in dates_requested:
                 #instantiates date to be sent to database
                 #DOES NOT SAVE. might need to be added to list to save later?
-                Dates.objects.create(room_number = room, date_booked = date)
-                booking.save()
-
+                #Dates.objects.create(room_number = room, date_booked = date)
+                #booking.save()
+                return redirect('bookings', customer_id = request.user.id)
 
 
     #renders form
     context['form'] = form
     return render(request, 'rental_form.html', context)
 
-
-  
