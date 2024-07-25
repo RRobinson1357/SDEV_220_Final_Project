@@ -16,7 +16,7 @@ def register(response):
         form = UserCreationForm(response.POST)
         if form.is_valid():
             form.save()
-        return redirect('')
+        return redirect('rooms')
     else:
         form = UserCreationForm()
     return render(response, 'registration/register.html', {'form':form})
@@ -53,9 +53,7 @@ def BookRoom(request, room_number):
         block_room = block_room[13:-33]
         block_room = block_room + " tzinfo=zoneinfo.ZoneInfo(keys='UTC))"
         blocked_dates.append(block_room)
-        print(block_room)
 
-    print("blocked_dates ",blocked_dates)
 
     #validates form and supplies Rental variables not included in the form
     #forms do not get saved yet. they need to be saved after entering payment info
@@ -82,10 +80,12 @@ def BookRoom(request, room_number):
         #creates list of each date that will be booked
         delta = timedelta(days = 1)
         dates_requested = []
+        loop_start = booking.start_date
 
-        while booking.start_date <= booking.end_date:
-            dates_requested.append(booking.start_date)
-            booking.start_date += delta
+        while loop_start <= booking.end_date:
+            dates_requested.append(loop_start)
+            loop_start += delta
+
 
         #create list with strings representing te dates
         #so they can be compared with the blocked_dates list
@@ -93,8 +93,6 @@ def BookRoom(request, room_number):
         for date in dates_requested:
             date = date.strftime("datetime.datetime(%Y, %#m, %#d, 0, 0 tzinfo=zoneinfo.ZoneInfo(keys='UTC))")
             compare_date.append(date)
-
-        print("compare date:",compare_date)
 
         #checks dates in compare_date list to those in database
         for date in compare_date:      
@@ -108,10 +106,14 @@ def BookRoom(request, room_number):
             for date in dates_requested:
                 #instantiates date to be sent to database
                 #DOES NOT SAVE. might need to be added to list to save later?
-                new_date = Dates(room_number = room, date_booked = date)
+                Dates.objects.create(room_number = room, date_booked = date)
+                booking.save()
 
 
 
     #renders form
     context['form'] = form
     return render(request, 'rental_form.html', context)
+
+
+  
