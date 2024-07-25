@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.conf import settings
 
@@ -39,3 +40,8 @@ class Rental(models.Model):
 class Dates(models.Model):
     room_number = models.ForeignKey(Room, on_delete = models.CASCADE)
     date_booked = models.DateTimeField(auto_now = False)
+    
+    def __str__(self):
+        date = self.date_booked
+        date = date.strftime("datetime.datetime(%Y, %#m, %#d, 0, 0 tzinfo=zoneinfo.ZoneInfo(keys='UTC))")
+        return date

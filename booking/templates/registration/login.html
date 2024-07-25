@@ -1,6 +1,10 @@
+{% load static %}
 {%block title%}
 <h2>Log in</h2>
 {%endblock%}
+<head>
+    <link rel="stylesheet", a href="{% static 'css/main.css' %}">
+</head>
 {% block content %}
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>

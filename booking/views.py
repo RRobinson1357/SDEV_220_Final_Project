@@ -44,20 +44,22 @@ def BookRoom(request, room_number):
     #Pulls dates the room is booked from the database
     dates_to_block = []
     block_room = Dates.objects.filter(room_number = room)
-    block_room = block_room.values('date_booked')
+    #block_room = block_room.values('date_booked')
 
     #compiles dates into a list of dictionary entries
     for date in block_room:
         dates_to_block.append(date)
 
+    print(dates_to_block)
+
     #formats list entries into string values so they can be compared later on
     blocked_dates = []
     for entry in dates_to_block:
-        block_room = entry.values()
+        block_room = entry
         block_room = str(block_room)
-        block_room = block_room[13:-33]
-        block_room = block_room + " tzinfo=zoneinfo.ZoneInfo(keys='UTC))"
+        block_room = block_room[0:-1]
         blocked_dates.append(block_room)
+        print(block_room)
 
 
     #validates form and supplies Rental variables not included in the form
@@ -96,11 +98,12 @@ def BookRoom(request, room_number):
         #so they can be compared with the blocked_dates list
         compare_date = []
         for date in dates_requested:
-            date = date.strftime("datetime.datetime(%Y, %#m, %#d, 0, 0 tzinfo=zoneinfo.ZoneInfo(keys='UTC))")
+            date = date.strftime("datetime.datetime(%Y, %#m, %#d, 0, 0 tzinfo=zoneinfo.ZoneInfo(keys='UTC)")
             compare_date.append(date)
 
         #checks dates in compare_date list to those in database
         for date in compare_date:      
+            print(date)
             if date in blocked_dates:
                 #prevents user from double booking one date NEEDS ERROR MESSAGE
                 booked_flag = True
@@ -110,8 +113,8 @@ def BookRoom(request, room_number):
             for date in dates_requested:
                 #instantiates date to be sent to database
                 #DOES NOT SAVE. might need to be added to list to save later?
-                #Dates.objects.create(room_number = room, date_booked = date)
-                #booking.save()
+                Dates.objects.create(room_number = room, date_booked = date)
+                booking.save()
                 return redirect('bookings', customer_id = request.user.id)
 
 
