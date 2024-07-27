@@ -3,15 +3,15 @@
     "booking/views.py": [
       {
         "id": "2c3364bd-8491-445c-977c-b1c5ada42425",
-        "line": 106,
-        "version": 988,
-        "index": 3791
+        "line": 37,
+        "version": 1029,
+        "index": 1221
       },
       {
         "id": "fd180c54-335c-4811-b78a-8cf9918e6bae",
-        "line": 115,
-        "version": 988,
-        "index": 4289
+        "line": 37,
+        "version": 1029,
+        "index": 1221
       }
     ]
   }

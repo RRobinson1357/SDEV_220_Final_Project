@@ -1,9 +1,7 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang='en'>
 <title>Register</title>
-  </head>
-    <body>
+    <body style="background-color: wheat;">
       <h1>Register</h1>
         <form  id="RegistrationForm" method="POST">
           {%csrf_token%}
@@ -11,5 +9,6 @@
             <input type="submit" value="Register">
           <button><a href="{% url 'login' %}">Login</a></button>
         </form>
+      
     </body>
 </html>

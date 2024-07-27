@@ -1,8 +1,11 @@
+{% load static %}
+<head>
+    <link rel="stylesheet", a href="{% static 'css/main.css' %}">
 </head>
-<body>
+<body style="text-align: center;">
     <h1>Your Bookings:</h1>
     {% for rental in rentals %}
-        <div>
+        <div style="display: inline-block; text-align: left;">
             <h2>Rental:</h2>
             <p>Room Number: {{ rental.room_number }}</p>
             <p>Start Date: {{ rental.start_date }}</p>

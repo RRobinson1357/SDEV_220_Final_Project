@@ -1,5 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang='en'>
+  <head>
+    <link rel="stylesheet", a href="{% static 'css/main.css' %}">
+  </head>
 <div id="content", name='content'>
   {%if user.is_authenticated%}
     {%block content%}
