@@ -34,6 +34,7 @@ def booking_detail(request, customer_id):
     print(rentals)
     return render(request, 'booking_detail.html', {'rentals': rentals})
 
+#defines BookRoom function
 def BookRoom(request, room_number):
     room = room_number 
     context = {'room_number' : room}
@@ -50,8 +51,6 @@ def BookRoom(request, room_number):
     for date in block_room:
         dates_to_block.append(date)
 
-    print(dates_to_block)
-
     #formats list entries into string values so they can be compared later on
     blocked_dates = []
     for entry in dates_to_block:
@@ -59,11 +58,8 @@ def BookRoom(request, room_number):
         block_room = str(block_room)
         block_room = block_room[0:-1]
         blocked_dates.append(block_room)
-        print(block_room)
-
 
     #validates form and supplies Rental variables not included in the form
-    #forms do not get saved yet. they need to be saved after entering payment info
     if form.is_valid():
         booking = form.save(commit = False)
         booking.room_number = Room.objects.get(room_number = room)
@@ -103,16 +99,14 @@ def BookRoom(request, room_number):
 
         #checks dates in compare_date list to those in database
         for date in compare_date:      
-            print(date)
             if date in blocked_dates:
-                #prevents user from double booking one date NEEDS ERROR MESSAGE
+                #prevents user from double booking one date
                 booked_flag = True
                 messages.error(request, "This room is not available to book during those dates.")
                 break
         if booked_flag == False and date_flag == False:
             for date in dates_requested:
-                #instantiates date to be sent to database
-                #DOES NOT SAVE. might need to be added to list to save later?
+                #saves Dates and Rental to database
                 Dates.objects.create(room_number = room, date_booked = date)
                 booking.save()
                 return redirect('bookings', customer_id = request.user.id)
