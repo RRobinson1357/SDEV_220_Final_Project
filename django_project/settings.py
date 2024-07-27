@@ -127,3 +127,16 @@ LOGIN_REDIRECT_URL = '/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+BOOTSTRAP_DATEPICKER_PLUS = {
+    # Options for all input widgets
+    # More options: https://getdatepicker.com/4/Options/
+    "options": {
+        #"locale": "bn",
+        "showClose": True,
+        "showClear": True,
+        "showTodayButton": True,
+        "maxDate": "2024-12-31",
+        "minDate": "2024-08-01",
+    }
+}
